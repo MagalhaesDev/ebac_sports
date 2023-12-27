@@ -3,20 +3,20 @@ import * as S from './styles'
 import { adicionar } from '../../store/reducers/carrinho'
 import { favoritar } from '../../store/reducers/favoritar'
 import { RootReducer } from '../../store'
-import { useGetJogosQuery } from '../../services/api'
+import { Produto } from '../../App'
 
 export const paraReal = (valor: number) =>
   new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
     valor
   )
 
-const ProdutoComponent = () => {
-  const { data: produto, isLoading } = useGetJogosQuery()
+interface ProdutoComponentProps {
+  produto: Produto
+}
 
+const ProdutoComponent = ({ produto }: ProdutoComponentProps) => {
   const dispatch = useDispatch()
   const itens = useSelector((state: RootReducer) => state.favoritar.favoritos)
-
-  if (isLoading) return <h2>Carregando</h2>
 
   const productsIsFavorite = itens.find((item) => item.id === produto.id)
 

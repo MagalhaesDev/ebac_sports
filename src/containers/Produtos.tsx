@@ -1,13 +1,13 @@
-import { Produto as ProdutoType } from '../App'
 import Produto from '../components/Produto'
+import { useGetJogosQuery } from '../services/api'
 
 import * as S from './styles'
 
-type Props = {
-  produtos: ProdutoType[]
-}
+const ProdutosComponent = () => {
+  const { data: produtos, isLoading } = useGetJogosQuery()
 
-const ProdutosComponent = ({ produtos }: Props) => {
+  if (isLoading || !produtos) return <h2>Carregando</h2>
+
   return (
     <>
       <S.Produtos>
